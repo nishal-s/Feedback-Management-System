@@ -27,34 +27,28 @@ pipeline {
             }
         }
 
-        stage('Deploy to Azure VM') {
+        stage('Deploy Locally (Single VM)') {
             steps {
-                echo 'Connecting to Azure VM via SSH to update the live application...'
+                echo 'Deploying to the same Azure VM that Jenkins is running on...'
                 
-                // IMPORTANT: Replace the placeholders with your Azure VM username and public IP!
-                // This step utilizes the 'SSH Agent Plugin' in Jenkins. 
-                // You must add your Azure SSH Key to the Jenkins Credentials manager as 'azure-vm-ssh-key'.
-                script {
-                    def azureUser = "azureuser"
-                    def azureIp = "YOUR.AZURE.PUBLIC.IP"
+                // Because Jenkins has local ownership of /var/www/feedops
+                // and a specific sudoers rule to restart the service without a password,
+                // we can just run native shell commands!
+                sh '''
+                    cd /var/www/feedops
                     
-                    echo "Initiating native rolling update on Azure VM..."
+                    echo "=> Pulling Latest Code"
+                    git pull origin main
                     
-                    /* UNCOMMENT THIS BLOCK ONCE YOUR JENKINS PLUGIN IS CONFIGURED
-                    sshagent(['azure-vm-ssh-key']) {
-                        sh """
-                            ssh -o StrictHostKeyChecking=no ${azureUser}@${azureIp} '
-                                cd /var/www/feedops &&
-                                git pull origin main &&
-                                source venv/bin/activate &&
-                                pip install -r requirements.txt &&
-                                sudo systemctl restart feedops
-                            '
-                        """
-                    }
-                    */
-                    echo 'SUCCESS: Mock deployment step passed. Please uncomment the sshagent block for real deployments.'
-                }
+                    echo "=> Updating Dependencies"
+                    source venv/bin/activate
+                    pip install -r requirements.txt
+                    
+                    echo "=> Restarting Live Server"
+                    sudo systemctl restart feedops
+                '''
+                
+                echo 'SUCCESS: Live deployment completed.'
             }
         }
     }
