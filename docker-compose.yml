@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: feedops-web
+    ports:
+      # Map the host port 8000 to the container port 5000
+      - "8000:5000"
+    volumes:
+      # Persist the dynamic SQLite database folder to the host system
+      # so feedback isn't lost when the container is deleted
+      - ./instance:/app/instance
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=production
+    restart: unless-stopped

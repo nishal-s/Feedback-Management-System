@@ -1,0 +1,117 @@
+/* Global Reset and Fonts */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8fafc !important; /* Tailwind slate-50 */
+    color: #0f172a; /* Tailwind slate-900 */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Typography Enhancements */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+}
+
+/* Gradient Text for modern feel */
+.text-gradient {
+    background: linear-gradient(135deg, #4f46e5 0%, #0ea5e9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+/* Custom Nav Bar with Glassmorphism */
+.glass-navbar {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.content-area {
+    margin-top: 80px; /* Offset for fixed navbar */
+    flex-shrink: 0;
+}
+
+.vh-80 {
+    min-height: 80vh;
+}
+
+/* Custom Buttons */
+.custom-btn {
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary.custom-btn {
+    background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+    border: none;
+    box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3), 0 2px 4px -1px rgba(79, 70, 229, 0.2);
+}
+
+.btn-primary.custom-btn:hover {
+    box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4), 0 4px 6px -2px rgba(79, 70, 229, 0.2);
+    transform: translateY(-2px);
+}
+
+.btn-outline-secondary.custom-btn:hover {
+    background-color: #f1f5f9;
+    color: #0f172a;
+    border-color: #cbd5e1;
+}
+
+/* Glass Cards for content */
+.glass-card {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.hero-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-card::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 150px;
+    height: 150px;
+    background: rgba(14, 165, 233, 0.2);
+    filter: blur(40px);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.hero-card::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 150px;
+    height: 150px;
+    background: rgba(79, 70, 229, 0.2);
+    filter: blur(40px);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+/* Animations */
+.feedback-item {
+    transition: transform 0.3s ease;
+}
+
+.feedback-item:hover {
+    transform: scale(1.02);
+}
+
+.extremely-small {
+    font-size: 0.75rem;
+}

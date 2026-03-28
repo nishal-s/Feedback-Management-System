@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}FeedOps - Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+            <h2 class="fw-bold text-gradient mb-0">Admin Dashboard</h2>
+            <span class="badge bg-primary rounded-pill py-2 px-3 fw-medium">Total Feedbacks: {{ feedbacks|length }}</span>
+        </div>
+
+        {% if feedbacks %}
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                {% for item in feedbacks %}
+                <div class="col">
+                    <div class="glass-card p-4 h-100 d-flex flex-column feedback-item">
+                        <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold me-2 shadow-sm" style="width: 35px; height: 35px;">
+                                    {{ item.user.username[0]|upper }}
+                                </div>
+                                <span class="fw-bold">{{ item.user.username }}</span>
+                            </div>
+                            <small class="text-muted extremely-small">{{ item.timestamp.strftime('%Y-%m-%d %H:%M') }}</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <span class="text-warning fw-bold fs-5">
+                                {% for _ in range(item.rating) %}★{% endfor %}
+                                {% for _ in range(5 - item.rating) %}☆{% endfor %}
+                            </span>
+                        </div>
+                        
+                        <p class="text-muted flex-grow-1">{{ item.message }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center p-5 text-muted glass-card">
+                <h4 class="fw-medium mb-3">No Feedback Yet</h4>
+                <p>Waiting for users to submit their thoughts.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

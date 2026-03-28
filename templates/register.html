@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}FeedOps - Register{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <div class="glass-card p-5">
+            <h2 class="text-center fw-bold mb-4 text-gradient">Register</h2>
+            
+            <form method="POST" action="{{ url_for('register') }}">
+                <div class="mb-3">
+                    <label for="username" class="form-label fw-medium">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" required placeholder="Choose a username">
+                </div>
+                
+                <div class="mb-4">
+                    <label for="password" class="form-label fw-medium">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required placeholder="Choose a secure password">
+                </div>
+                
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary custom-btn btn-lg">Create Account</button>
+                </div>
+            </form>
+            
+            <div class="text-center mt-4 text-muted small">
+                Already have an account? <a href="{{ url_for('login') }}" class="text-decoration-none fw-medium text-gradient">Sign in here</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

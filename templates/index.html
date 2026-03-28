@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}FeedOps - Home{% endblock %}
+
+{% block content %}
+<div class="row align-items-center vh-80 hero-section mt-5 mt-md-0 pt-5 pt-md-0">
+    <div class="col-md-6 text-center text-md-start">
+        <h1 class="display-3 fw-bold text-gradient mb-4">Empowering DevOps with Feedback</h1>
+        <p class="lead text-muted mb-5">
+            FeedOps seamlessly integrates feedback loops into your DevOps pipelines. It’s an end-to-end feedback management platform built to help teams listen, learn, and deliver faster.
+        </p>
+        <div class="d-flex gap-3 justify-content-center justify-content-md-start">
+            <a href="#" class="btn btn-primary btn-lg custom-btn">Get Started</a>
+            <a href="#" class="btn btn-outline-secondary btn-lg custom-btn">Learn More</a>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mt-5 mt-md-0 d-none d-md-block text-center">
+        <!-- We will use a dynamic iteration of actual feedback items to look premium -->
+        <div class="glass-card p-5 hero-card mx-auto">
+            <h3 class="fw-bold mb-3">Recent Feedback</h3>
+            {% for item in recent_feedbacks %}
+            <div class="feedback-item mb-3 p-3 bg-white rounded shadow-sm text-start">
+                <div class="text-warning small mb-1">
+                    {% for _ in range(item.rating) %}★{% endfor %}{% for _ in range(5 - item.rating) %}☆{% endfor %}
+                </div>
+                <div class="small fw-medium">"{{ item.message }}"</div>
+                <div class="text-muted extremely-small mt-2">- {{ item.user.username }}</div>
+            </div>
+            {% else %}
+            <div class="feedback-item mb-3 p-3 bg-white rounded shadow-sm text-center">
+                <p class="text-muted small mb-0">No feedback submitted yet.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
