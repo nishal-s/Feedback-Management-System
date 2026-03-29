@@ -19,7 +19,7 @@ pipeline {
                     pip install -r requirements.txt
                     
                     echo "=> Running Linter"
-                    flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+                    flake8 . --exclude=venv,.git,__pycache__ --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
                     
                     echo "=> Running Unit Tests"
                     python -m pytest tests/
