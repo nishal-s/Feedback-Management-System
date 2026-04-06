@@ -14,7 +14,7 @@
 <body class="bg-dark text-light">
 
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg glass-navbar fixed-top">
+    <nav class="navbar navbar-expand-lg glass-navbar fixed-top" data-bs-theme="dark">
         <div class="container">
             <a class="navbar-brand fw-bold text-gradient" href="{{ url_for('index') }}">MovieRev</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsupportedContent" aria-controls="navbarsupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,7 +39,7 @@
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link fw-medium" href="{{ url_for('login') }}">Login</a>
+                            <a class="nav-link fw-medium btn btn-outline-light custom-btn px-3" href="{{ url_for('login') }}">Login</a>
                         </li>
                         <li class="nav-item ms-lg-2">
                             <a class="nav-link fw-medium btn btn-primary custom-btn text-white px-3" href="{{ url_for('register') }}">Register</a>
