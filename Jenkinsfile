@@ -1,8 +1,13 @@
 pipeline {
-    // This assumes your Jenkins agent supports standard Linux shell and Python 3.
     agent any
 
+    environment {
+        APP_DIR = "/var/www/feedops"
+        REPO_URL = "https://github.com/nishal-s/Feedback-Management-System.git"
+    }
+
     stages {
+
         stage('Checkout') {
             steps {
                 echo 'Checking out source code from GitHub...'
@@ -29,30 +34,40 @@ pipeline {
 
         stage('Deploy Locally (Single VM)') {
             steps {
-                echo 'Deploying to the same Azure VM that Jenkins is running on...'
-                
-                // Because Jenkins has local ownership of /var/www/feedops
-                // and a specific sudoers rule to restart the service without a password,
-                // we can just run native shell commands!
+                echo 'Deploying to Azure VM...'
+
                 sh '''
-                    cd /var/www/feedops
-                    
-                    echo "=> Pulling Latest Code"
-                    git pull origin main
-                    
-                    echo "=> Updating Dependencies"
+                    echo "=> Preparing deployment directory"
+                    mkdir -p $APP_DIR
+                    cd $APP_DIR
+
+                    # ✅ FIX: Check if it's a git repo
+                    if [ ! -d ".git" ]; then
+                        echo "=> Cloning fresh repository"
+                        rm -rf *
+                        git clone $REPO_URL .
+                    else
+                        echo "=> Pulling latest changes"
+                        git pull origin main
+                    fi
+
+                    echo "=> Setting up virtual environment"
+                    if [ ! -d "venv" ]; then
+                        python3 -m venv venv
+                    fi
+
                     source venv/bin/activate
                     pip install -r requirements.txt
-                    
-                    echo "=> Restarting Live Server"
+
+                    echo "=> Restarting application"
                     sudo systemctl restart feedops
                 '''
-                
+
                 echo 'SUCCESS: Live deployment completed.'
             }
         }
     }
-    
+
     post {
         always {
             echo 'Pipeline execution complete.'
