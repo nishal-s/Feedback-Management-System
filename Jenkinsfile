@@ -21,11 +21,12 @@ pipeline {
                 sh '''
                     python3 -m venv venv
                     . venv/bin/activate
+
                     pip install -r requirements.txt
-                    
+
                     echo "=> Running Linter"
                     flake8 . --exclude=venv,.git,__pycache__ --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-                    
+
                     echo "=> Running Unit Tests"
                     python -m pytest tests/
                 '''
@@ -41,7 +42,7 @@ pipeline {
                     mkdir -p $APP_DIR
                     cd $APP_DIR
 
-                    # ✅ FIX: Check if it's a git repo
+                    # Check if repo exists
                     if [ ! -d ".git" ]; then
                         echo "=> Cloning fresh repository"
                         rm -rf *
@@ -56,7 +57,7 @@ pipeline {
                         python3 -m venv venv
                     fi
 
-                    source venv/bin/activate
+                    . venv/bin/activate   # ✅ FIXED (works in sh)
                     pip install -r requirements.txt
 
                     echo "=> Restarting application"
