@@ -7,12 +7,12 @@
     <div class="col-12">
         <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
             <h2 class="fw-bold text-gradient mb-0">Admin Dashboard</h2>
-            <span class="badge bg-primary rounded-pill py-2 px-3 fw-medium">Total Feedbacks: {{ feedbacks|length }}</span>
+            <span class="badge bg-primary rounded-pill py-2 px-3 fw-medium">Total Reviews: {{ reviews|length }}</span>
         </div>
 
-        {% if feedbacks %}
+        {% if reviews %}
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                {% for item in feedbacks %}
+                {% for item in reviews %}
                 <div class="col">
                     <div class="glass-card p-4 h-100 d-flex flex-column feedback-item">
                         <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
@@ -31,15 +31,15 @@
                                 {% for _ in range(5 - item.rating) %}☆{% endfor %}
                             </span>
                         </div>
-                        
-                        <p class="text-muted flex-grow-1">{{ item.message }}</p>
+                        <h5 class="fw-bold">{{ item.movie_title }}</h5>
+                        <p class="text-muted flex-grow-1">{{ item.review_text }}</p>
                     </div>
                 </div>
                 {% endfor %}
             </div>
         {% else %}
             <div class="text-center p-5 text-muted glass-card">
-                <h4 class="fw-medium mb-3">No Feedback Yet</h4>
+                <h4 class="fw-medium mb-3">No Reviews Yet</h4>
                 <p>Waiting for users to submit their thoughts.</p>
             </div>
         {% endif %}

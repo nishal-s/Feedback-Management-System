@@ -5,9 +5,9 @@
 {% block content %}
 <div class="row align-items-center vh-80 hero-section mt-5 mt-md-0 pt-5 pt-md-0">
     <div class="col-md-6 text-center text-md-start">
-        <h1 class="display-3 fw-bold text-gradient mb-4">Empowering DevOps with Feedback</h1>
+        <h1 class="display-3 fw-bold text-gradient mb-4">Share Your Cinematic Journey</h1>
         <p class="lead text-muted mb-5">
-            FeedOps seamlessly integrates feedback loops into your DevOps pipelines. It’s an end-to-end feedback management platform built to help teams listen, learn, and deliver faster.
+            MovieRev is your premium platform to review, rate, and discuss your favorite movies. Join the community and let your voice be heard on the biggest blockbusters and indie gems.
         </p>
         <div class="d-flex gap-3 justify-content-center justify-content-md-start">
             <a href="#" class="btn btn-primary btn-lg custom-btn">Get Started</a>
@@ -18,18 +18,19 @@
     <div class="col-md-6 mt-5 mt-md-0 d-none d-md-block text-center">
         <!-- We will use a dynamic iteration of actual feedback items to look premium -->
         <div class="glass-card p-5 hero-card mx-auto">
-            <h3 class="fw-bold mb-3">Recent Feedback</h3>
-            {% for item in recent_feedbacks %}
-            <div class="feedback-item mb-3 p-3 bg-white rounded shadow-sm text-start">
+            <h3 class="fw-bold mb-3">Recent Reviews</h3>
+            {% for item in recent_reviews %}
+            <div class="feedback-item mb-3 p-3 text-start" style="background: rgba(30, 41, 59, 0.8); border-radius: 8px;">
                 <div class="text-warning small mb-1">
                     {% for _ in range(item.rating) %}★{% endfor %}{% for _ in range(5 - item.rating) %}☆{% endfor %}
                 </div>
-                <div class="small fw-medium">"{{ item.message }}"</div>
-                <div class="text-muted extremely-small mt-2">- {{ item.user.username }}</div>
+                <div class="small fw-bold text-gradient">{{ item.movie_title }}</div>
+                <div class="small fw-medium">"{{ item.review_text }}"</div>
+                <div class="text-light small mt-2 fst-italic">- {{ item.user.username }}</div>
             </div>
             {% else %}
-            <div class="feedback-item mb-3 p-3 bg-white rounded shadow-sm text-center">
-                <p class="text-muted small mb-0">No feedback submitted yet.</p>
+            <div class="feedback-item mb-3 p-3 text-center" style="background: rgba(30, 41, 59, 0.8); border-radius: 8px;">
+                <p class="text-muted small mb-0">No reviews submitted yet.</p>
             </div>
             {% endfor %}
         </div>

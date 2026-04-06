@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-from models import db, User, Feedback
+from models import db, User, Review
 
 app = Flask(__name__)
 # Keep the secret key to allow flash messaging and sessions
@@ -27,28 +27,29 @@ with app.app_context():
 
 @app.route('/')
 def index():
-    recent_feedbacks = Feedback.query.order_by(Feedback.timestamp.desc()).limit(3).all()
-    return render_template('index.html', recent_feedbacks=recent_feedbacks)
+    recent_reviews = Review.query.order_by(Review.timestamp.desc()).limit(3).all()
+    return render_template('index.html', recent_reviews=recent_reviews)
 
-@app.route('/feedback', methods=['GET', 'POST'])
+@app.route('/review', methods=['GET', 'POST'])
 @login_required
-def feedback():
+def review():
     if request.method == 'POST':
-        message = request.form.get('message')
+        movie_title = request.form.get('movie_title')
+        review_text = request.form.get('review_text')
         rating = request.form.get('rating')
         
-        if not rating or not message:
-            flash('Please provide both a rating and a message.', 'danger')
-            return redirect(url_for('feedback'))
+        if not rating or not review_text or not movie_title:
+            flash('Please provide a movie title, a rating, and a review.', 'danger')
+            return redirect(url_for('review'))
             
-        new_feedback = Feedback(message=message, rating=int(rating), user_id=current_user.id)
-        db.session.add(new_feedback)
+        new_review = Review(movie_title=movie_title, review_text=review_text, rating=int(rating), user_id=current_user.id)
+        db.session.add(new_review)
         db.session.commit()
         
-        flash('Thank you for your feedback!', 'success')
+        flash('Thank you for your movie review!', 'success')
         return redirect(url_for('index'))
         
-    return render_template('feedback.html')
+    return render_template('review.html')
 
 @app.route('/admin')
 @login_required
@@ -57,8 +58,8 @@ def admin():
         flash('Access denied. Admin privileges required.', 'danger')
         return redirect(url_for('index'))
         
-    all_feedbacks = Feedback.query.order_by(Feedback.timestamp.desc()).all()
-    return render_template('admin.html', feedbacks=all_feedbacks)
+    all_reviews = Review.query.order_by(Review.timestamp.desc()).all()
+    return render_template('admin.html', reviews=all_reviews)
 
 
 @app.route('/register', methods=['GET', 'POST'])

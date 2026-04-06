@@ -9,14 +9,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <title>{% block title %}FeedOps{% endblock %}</title>
+    <title>{% block title %}MovieRev{% endblock %}</title>
 </head>
-<body class="bg-light">
+<body class="bg-dark text-light">
 
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg glass-navbar fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold text-gradient" href="{{ url_for('index') }}">FeedOps</a>
+            <a class="navbar-brand fw-bold text-gradient" href="{{ url_for('index') }}">MovieRev</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsupportedContent" aria-controls="navbarsupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -24,7 +24,7 @@
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     {% if current_user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link fw-medium text-gradient" href="{{ url_for('feedback') }}">Submit Feedback</a>
+                            <a class="nav-link fw-medium text-gradient" href="{{ url_for('review') }}">Submit Review</a>
                         </li>
                         {% if current_user.username == 'admin' %}
                         <li class="nav-item">
@@ -32,7 +32,7 @@
                         </li>
                         {% endif %}
                         <li class="nav-item">
-                            <span class="nav-link text-muted ms-lg-2 me-3">| Hello, {{ current_user.username }}</span>
+                            <span class="nav-link text-light ms-lg-2 me-3">| Hello, {{ current_user.username }}</span>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link fw-medium btn btn-sm btn-outline-danger custom-btn border-0 py-2" href="{{ url_for('logout') }}">Logout</a>
@@ -72,7 +72,7 @@
     <!-- Footer -->
     <footer class="footer mt-auto py-3 text-center">
         <div class="container text-muted small">
-            &copy; 2026 FeedOps by Antigravity. Built with ❤️ for DevOps.
+            &copy; 2026 MovieRev by Antigravity. Built with ❤️ for Cinephiles.
         </div>
     </footer>
 

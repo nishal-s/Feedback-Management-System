@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
-{% block title %}FeedOps - Submit Feedback{% endblock %}
+{% block title %}MovieRev - Submit Review{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center mt-5">
     <div class="col-md-6">
         <div class="glass-card p-5">
-            <h2 class="text-center fw-bold mb-4 text-gradient">Submit Feedback</h2>
+            <h2 class="text-center fw-bold mb-4 text-gradient">Submit Review</h2>
             
-            <form method="POST" action="{{ url_for('feedback') }}">
+            <form method="POST" action="{{ url_for('review') }}">
                 <div class="mb-4">
                     <label class="form-label fw-medium d-block">How would you rate your experience?</label>
                     <div class="d-flex justify-content-between rating-group mb-2">
@@ -25,12 +25,17 @@
                 </div>
 
                 <div class="mb-4">
-                    <label for="message" class="form-label fw-medium">Your Message</label>
-                    <textarea class="form-control" id="message" name="message" rows="4" required placeholder="Tell us what you liked or how we can improve..."></textarea>
+                    <label for="movie_title" class="form-label fw-medium">Movie Title</label>
+                    <input type="text" class="form-control" id="movie_title" name="movie_title" required placeholder="e.g. Inception">
+                </div>
+
+                <div class="mb-4">
+                    <label for="review_text" class="form-label fw-medium">Your Review</label>
+                    <textarea class="form-control" id="review_text" name="review_text" rows="4" required placeholder="What did you think of the movie?"></textarea>
                 </div>
                 
                 <div class="d-grid gap-2 mt-4">
-                    <button type="submit" class="btn btn-primary custom-btn btn-lg">Submit Feedback</button>
+                    <button type="submit" class="btn btn-primary custom-btn btn-lg">Submit Review</button>
                     <a href="{{ url_for('index') }}" class="btn btn-outline-secondary custom-btn">Cancel</a>
                 </div>
             </form>

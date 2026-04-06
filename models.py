@@ -15,10 +15,11 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-class Feedback(db.Model):
+class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    message = db.Column(db.Text, nullable=False)
+    movie_title = db.Column(db.String(255), nullable=False)
+    review_text = db.Column(db.Text, nullable=False)
     rating = db.Column(db.Integer, nullable=False)
     timestamp = db.Column(db.DateTime, default=db.func.current_timestamp())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    user = db.relationship('User', backref=db.backref('feedbacks', lazy=True))
+    user = db.relationship('User', backref=db.backref('reviews', lazy=True))
