@@ -19,7 +19,7 @@ login_manager.init_app(app)
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
-
+#no
 # Create database tables if they don't exist
 with app.app_context():
     db.create_all()
